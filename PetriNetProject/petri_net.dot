@@ -1,0 +1,14 @@
+digraph PetriNet {
+"P1" [shape=circle, label="P1
+Tokens: 0"];
+"P2" [shape=circle, label="P2
+Tokens: 0"];
+"P3" [shape=circle, label="P3
+Tokens: 1"];
+"T1" [shape=box, label="T1"];
+"T2" [shape=box, label="T2"];
+"P1" -> "T1" [label="1"];
+"P2" -> "T2" [label="1"];
+"T1" -> "P2" [label="1"];
+"T2" -> "P3" [label="1"];
+}
