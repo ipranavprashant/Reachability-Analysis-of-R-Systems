@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pnml>
+  <net id="PetriNet1" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+      <place id="p1">
+        <name>
+          <text>p1</text>
+        </name>
+        <type>
+          <text>initial</text>
+        </type>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      <place id="p2">
+        <name>
+          <text>p2</text>
+        </name>
+        <type>
+          <text>intermediate</text>
+        </type>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      <place id="p3">
+        <name>
+          <text>p3</text>
+        </name>
+        <type>
+          <text>leave</text>
+        </type>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      <transition id="t1">
+        <name>
+          <text>t1</text>
+        </name>
+        <type>
+          <text>join</text>
+        </type>
+      </transition>
+      <transition id="t2">
+        <name>
+          <text>t2</text>
+        </name>
+        <type>
+          <text>leave</text>
+        </type>
+      </transition>
+      <arc id="a1" source="p1" target="t1">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      <arc id="a2" source="t1" target="p2">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      <arc id="a3" source="p2" target="t2">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      <arc id="a4" source="t2" target="p3">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+    </page>
+  </net>
+</pnml>
