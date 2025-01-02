@@ -1,0 +1,25 @@
+digraph PetriNet {
+  "outside" [label="outside\n(initial)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "entering" [label="entering\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "tunnel" [label="tunnel\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "collision" [label="collision\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "exited" [label="exited\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "green" [label="green\n(initial)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "red" [label="red\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "alert" [label="alert\n(intermediate)\nMarking: 0" shape=circle style=filled fillcolor=lightblue];
+  "outside_to_entering_approach" [label="outside_to_entering_approach" shape=box style=filled fillcolor=lightgray];
+  "entering_to_tunnel_enter" [label="entering_to_tunnel_enter" shape=box style=filled fillcolor=lightgray];
+  "tunnel_to_exited_exit" [label="tunnel_to_exited_exit" shape=box style=filled fillcolor=lightgray];
+  "green_to_red_go" [label="green_to_red_go" shape=box style=filled fillcolor=lightgray];
+  "red_to_green_stop" [label="red_to_green_stop" shape=box style=filled fillcolor=lightgray];
+  "outside" -> "outside_to_entering_approach" [label="arc_outside_outside_to_entering_approach" weight=1];
+  "outside_to_entering_approach" -> "entering" [label="arc_outside_to_entering_approach_entering" weight=1];
+  "entering" -> "entering_to_tunnel_enter" [label="arc_entering_entering_to_tunnel_enter" weight=1];
+  "entering_to_tunnel_enter" -> "tunnel" [label="arc_entering_to_tunnel_enter_tunnel" weight=1];
+  "tunnel" -> "tunnel_to_exited_exit" [label="arc_tunnel_tunnel_to_exited_exit" weight=1];
+  "tunnel_to_exited_exit" -> "exited" [label="arc_tunnel_to_exited_exit_exited" weight=1];
+  "green" -> "green_to_red_go" [label="arc_green_green_to_red_go" weight=1];
+  "green_to_red_go" -> "red" [label="arc_green_to_red_go_red" weight=1];
+  "red" -> "red_to_green_stop" [label="arc_red_red_to_green_stop" weight=1];
+  "red_to_green_stop" -> "green" [label="arc_red_to_green_stop_green" weight=1];
+}
