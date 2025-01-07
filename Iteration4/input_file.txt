@@ -1,0 +1,598 @@
+the Agent states are: {outside,tunnel,collision,leave}
+the Agent actions are : {enter,wait,run,recover,exit}
+
+
+and the protocol for the agent is:
+Protocol P : L P(Act) is
+P(tunnel)= {run,exit} 
+P(outside)= {enter,wait}
+P(collision)={recover}
+
+
+the Environment states are: {green,red}
+the Environment actions are : {go,stop,recover}
+
+and the protocol for the environment is:
+P(green)= {go}
+P(red)= {stop,recover}
+
+
+
+//idea: you can have if else statements to check a lot of things ourselves instead of them giving the smallest of details
+
+Transtion of agents:
+initialState, action taken by me, tuple of actions taken by other Agents, action taken by environment, my final state
+outside, wait, [enter], go, outside
+outside, wait, [wait], go, outside
+outside, wait, [run], go, outside
+outside, wait, [recover], go, outside
+outside, wait, [exit], go, outside
+outside, wait, [enter, wait], go, outside
+outside, wait, [enter, run], go, outside
+outside, wait, [enter, recover], go, outside
+outside, wait, [enter, exit], go, outside
+outside, wait, [wait, run], go, outside
+outside, wait, [wait, recover], go, outside
+outside, wait, [wait, exit], go, outside
+outside, wait, [run, recover], go, outside
+outside, wait, [run, exit], go, outside
+outside, wait, [recover, exit], go, outside
+outside, wait, [enter, wait, run], go, outside
+outside, wait, [enter, wait, recover], go, outside
+outside, wait, [enter, wait, exit], go, outside
+outside, wait, [enter, run, recover], go, outside
+outside, wait, [enter, run, exit], go, outside
+outside, wait, [enter, recover, exit], go, outside
+outside, wait, [wait, run, recover], go, outside
+outside, wait, [wait, run, exit], go, outside
+outside, wait, [wait, recover, exit], go, outside
+outside, wait, [run, recover, exit], go, outside
+outside, wait, [enter, wait, run, recover], go, outside
+outside, wait, [enter, wait, run, exit], go, outside
+outside, wait, [enter, wait, recover, exit], go, outside
+outside, wait, [enter, run, recover, exit], go, outside
+outside, wait, [wait, run, recover, exit], go, outside
+outside, wait, [enter, wait, run, recover, exit], go, outside
+
+outside, wait, [enter], stop, outside
+outside, wait, [wait], stop, outside
+outside, wait, [run], stop, outside
+outside, wait, [recover], stop, outside
+outside, wait, [exit], stop, outside
+outside, wait, [enter, wait], stop, outside
+outside, wait, [enter, run], stop, outside
+outside, wait, [enter, recover], stop, outside
+outside, wait, [enter, exit], stop, outside
+outside, wait, [wait, run], stop, outside
+outside, wait, [wait, recover], stop, outside
+outside, wait, [wait, exit], stop, outside
+outside, wait, [run, recover], stop, outside
+outside, wait, [run, exit], stop, outside
+outside, wait, [recover, exit], stop, outside
+outside, wait, [enter, wait, run], stop, outside
+outside, wait, [enter, wait, recover], stop, outside
+outside, wait, [enter, wait, exit], stop, outside
+outside, wait, [enter, run, recover], stop, outside
+outside, wait, [enter, run, exit], stop, outside
+outside, wait, [enter, recover, exit], stop, outside
+outside, wait, [wait, run, recover], stop, outside
+outside, wait, [wait, run, exit], stop, outside
+outside, wait, [wait, recover, exit], stop, outside
+outside, wait, [run, recover, exit], stop, outside
+outside, wait, [enter, wait, run, recover], stop, outside
+outside, wait, [enter, wait, run, exit], stop, outside
+outside, wait, [enter, wait, recover, exit], stop, outside
+outside, wait, [enter, run, recover, exit], stop, outside
+outside, wait, [wait, run, recover, exit], stop, outside
+outside, wait, [enter, wait, run, recover, exit], stop, outside
+
+outside, wait, [enter], recover, outside
+outside, wait, [wait], recover, outside
+outside, wait, [run], recover, outside
+outside, wait, [recover], recover, outside
+outside, wait, [exit], recover, outside
+outside, wait, [enter, wait], recover, outside
+outside, wait, [enter, run], recover, outside
+outside, wait, [enter, recover], recover, outside
+outside, wait, [enter, exit], recover, outside
+outside, wait, [wait, run], recover, outside
+outside, wait, [wait, recover], recover, outside
+outside, wait, [wait, exit], recover, outside
+outside, wait, [run, recover], recover, outside
+outside, wait, [run, exit], recover, outside
+outside, wait, [recover, exit], recover, outside
+outside, wait, [enter, wait, run], recover, outside
+outside, wait, [enter, wait, recover], recover, outside
+outside, wait, [enter, wait, exit], recover, outside
+outside, wait, [enter, run, recover], recover, outside
+outside, wait, [enter, run, exit], recover, outside
+outside, wait, [enter, recover, exit], recover, outside
+outside, wait, [wait, run, recover], recover, outside
+outside, wait, [wait, run, exit], recover, outside
+outside, wait, [wait, recover, exit], recover, outside
+outside, wait, [run, recover, exit], recover, outside
+outside, wait, [enter, wait, run, recover], recover, outside
+outside, wait, [enter, wait, run, exit], recover, outside
+outside, wait, [enter, wait, recover, exit], recover, outside
+outside, wait, [enter, run, recover, exit], recover, outside
+outside, wait, [wait, run, recover, exit], recover, outside
+outside, wait, [enter, wait, run, recover, exit], recover, outside
+
+
+outside, enter, [], go, tunnel
+outside, enter, [wait], go, tunnel
+outside, enter, [run], go, tunnel
+outside, enter, [recover], go, tunnel
+outside, enter, [exit], go, tunnel
+outside, enter, [wait, run], go, tunnel
+outside, enter, [wait, recover], go, tunnel
+outside, enter, [wait, exit], go, tunnel
+outside, enter, [run, recover], go, tunnel
+outside, enter, [run, exit], go, tunnel
+outside, enter, [recover, exit], go, tunnel
+outside, enter, [wait, run, recover], go, tunnel
+outside, enter, [wait, run, exit], go, tunnel
+outside, enter, [wait, recover, exit], go, tunnel
+outside, enter, [run, recover, exit], go, tunnel
+outside, enter, [wait, run, recover, exit], go, tunnel
+
+
+outside, enter, [], stop, outside
+outside, enter, [enter], stop, outside
+outside, enter, [wait], stop, outside
+outside, enter, [run], stop, outside
+outside, enter, [recover], stop, outside
+outside, enter, [exit], stop, outside
+outside, enter, [enter, wait], stop, outside
+outside, enter, [enter, run], stop, outside
+outside, enter, [enter, recover], stop, outside
+outside, enter, [enter, exit], stop, outside
+outside, enter, [wait, run], stop, outside
+outside, enter, [wait, recover], stop, outside
+outside, enter, [wait, exit], stop, outside
+outside, enter, [run, recover], stop, outside
+outside, enter, [run, exit], stop, outside
+outside, enter, [recover, exit], stop, outside
+outside, enter, [enter, wait, run], stop, outside
+outside, enter, [enter, wait, recover], stop, outside
+outside, enter, [enter, wait, exit], stop, outside
+outside, enter, [enter, run, recover], stop, outside
+outside, enter, [enter, run, exit], stop, outside
+outside, enter, [enter, recover, exit], stop, outside
+outside, enter, [wait, run, recover], stop, outside
+outside, enter, [wait, run, exit], stop, outside
+outside, enter, [wait, recover, exit], stop, outside
+outside, enter, [run, recover, exit], stop, outside
+outside, enter, [enter, wait, run, recover], stop, outside
+outside, enter, [enter, wait, run, exit], stop, outside
+outside, enter, [enter, wait, recover, exit], stop, outside
+outside, enter, [enter, run, recover, exit], stop, outside
+outside, enter, [wait, run, recover, exit], stop, outside
+outside, enter, [enter, wait, run, recover, exit], stop, outside
+
+outside, enter, [], recover, outside
+outside, enter, [enter], recover, outside
+outside, enter, [wait], recover, outside
+outside, enter, [run], recover, outside
+outside, enter, [recover], recover, outside
+outside, enter, [exit], recover, outside
+outside, enter, [enter, wait], recover, outside
+outside, enter, [enter, run], recover, outside
+outside, enter, [enter, recover], recover, outside
+outside, enter, [enter, exit], recover, outside
+outside, enter, [wait, run], recover, outside
+outside, enter, [wait, recover], recover, outside
+outside, enter, [wait, exit], recover, outside
+outside, enter, [run, recover], recover, outside
+outside, enter, [run, exit], recover, outside
+outside, enter, [recover, exit], recover, outside
+outside, enter, [enter, wait, run], recover, outside
+outside, enter, [enter, wait, recover], recover, outside
+outside, enter, [enter, wait, exit], recover, outside
+outside, enter, [enter, run, recover], recover, outside
+outside, enter, [enter, run, exit], recover, outside
+outside, enter, [enter, recover, exit], recover, outside
+outside, enter, [wait, run, recover], recover, outside
+outside, enter, [wait, run, exit], recover, outside
+outside, enter, [wait, recover, exit], recover, outside
+outside, enter, [run, recover, exit], recover, outside
+outside, enter, [enter, wait, run, recover], recover, outside
+outside, enter, [enter, wait, run, exit], recover, outside
+outside, enter, [enter, wait, recover, exit], recover, outside
+outside, enter, [enter, run, recover, exit], recover, outside
+outside, enter, [wait, run, recover, exit], recover, outside
+outside, enter, [enter, wait, run, recover, exit], recover, outside
+
+//if you know that this is the case of collision, then should we enter?
+outside, enter, [enter], go, collision
+outside, enter, [enter, wait], go, collision
+outside, enter, [enter, run], go, collision
+outside, enter, [enter, recover], go, collision
+outside, enter, [enter, exit], go, collision
+outside, enter, [enter, wait, run], go, collision
+outside, enter, [enter, wait, recover], go, collision
+outside, enter, [enter, wait, exit], go, collision
+outside, enter, [enter, run, recover], go, collision
+outside, enter, [enter, run, exit], go, collision
+outside, enter, [enter, recover, exit], go, collision
+outside, enter, [enter, wait, run, recover], go, collision
+outside, enter, [enter, wait, run, exit], go, collision
+outside, enter, [enter, wait, recover, exit], go, collision
+outside, enter, [enter, run, recover, exit], go, collision
+outside, enter, [enter, wait, run, recover, exit], go, collision
+
+
+//doesnt matter, because we are dealing with multi client single server system, so as soon as a client enters the server, its bound to complete the process without any issues
+tunnel, exit, [], go, leave
+tunnel, exit, [enter], go, leave
+tunnel, exit, [wait], go, leave
+tunnel, exit, [run], go, leave
+tunnel, exit, [recover], go, leave
+tunnel, exit, [exit], go, leave
+tunnel, exit, [enter, wait], go, leave
+tunnel, exit, [enter, run], go, leave
+tunnel, exit, [enter, recover], go, leave
+tunnel, exit, [enter, exit], go, leave
+tunnel, exit, [wait, run], go, leave
+tunnel, exit, [wait, recover], go, leave
+tunnel, exit, [wait, exit], go, leave
+tunnel, exit, [run, recover], go, leave
+tunnel, exit, [run, exit], go, leave
+tunnel, exit, [recover, exit], go, leave
+tunnel, exit, [enter, wait, run], go, leave
+tunnel, exit, [enter, wait, recover], go, leave
+tunnel, exit, [enter, wait, exit], go, leave
+tunnel, exit, [enter, run, recover], go, leave
+tunnel, exit, [enter, run, exit], go, leave
+tunnel, exit, [enter, recover, exit], go, leave
+tunnel, exit, [wait, run, recover], go, leave
+tunnel, exit, [wait, run, exit], go, leave
+tunnel, exit, [wait, recover, exit], go, leave
+tunnel, exit, [run, recover, exit], go, leave
+tunnel, exit, [enter, wait, run, recover], go, leave
+tunnel, exit, [enter, wait, run, exit], go, leave
+tunnel, exit, [enter, wait, recover, exit], go, leave
+tunnel, exit, [enter, run, recover, exit], go, leave
+tunnel, exit, [wait, run, recover, exit], go, leave
+tunnel, exit, [enter, wait, run, recover, exit], go, leave
+
+
+//if its tunnel its bound to leave
+tunnel, exit, [], stop, leave
+tunnel, exit, [enter], stop, leave
+tunnel, exit, [wait], stop, leave
+tunnel, exit, [run], stop, leave
+tunnel, exit, [recover], stop, leave
+tunnel, exit, [exit], stop, leave
+tunnel, exit, [enter, wait], stop, leave
+tunnel, exit, [enter, run], stop, leave
+tunnel, exit, [enter, recover], stop, leave
+tunnel, exit, [enter, exit], stop, leave
+tunnel, exit, [wait, run], stop, leave
+tunnel, exit, [wait, recover], stop, leave
+tunnel, exit, [wait, exit], stop, leave
+tunnel, exit, [run, recover], stop, leave
+tunnel, exit, [run, exit], stop, leave
+tunnel, exit, [recover, exit], stop, leave
+tunnel, exit, [enter, wait, run], stop, leave
+tunnel, exit, [enter, wait, recover], stop, leave
+tunnel, exit, [enter, wait, exit], stop, leave
+tunnel, exit, [enter, run, recover], stop, leave
+tunnel, exit, [enter, run, exit], stop, leave
+tunnel, exit, [enter, recover, exit], stop, leave
+tunnel, exit, [wait, run, recover], stop, leave
+tunnel, exit, [wait, run, exit], stop, leave
+tunnel, exit, [wait, recover, exit], stop, leave
+tunnel, exit, [run, recover, exit], stop, leave
+tunnel, exit, [enter, wait, run, recover], stop, leave
+tunnel, exit, [enter, wait, run, exit], stop, leave
+tunnel, exit, [enter, wait, recover, exit], stop, leave
+tunnel, exit, [enter, run, recover, exit], stop, leave
+tunnel, exit, [wait, run, recover, exit], stop, leave
+tunnel, exit, [enter, wait, run, recover, exit], stop, leave
+
+tunnel, exit, [], recover, leave
+tunnel, exit, [enter], recover, leave
+tunnel, exit, [wait], recover, leave
+tunnel, exit, [run], recover, leave
+tunnel, exit, [recover], recover, leave
+tunnel, exit, [exit], recover, leave
+tunnel, exit, [enter, wait], recover, leave
+tunnel, exit, [enter, run], recover, leave
+tunnel, exit, [enter, recover], recover, leave
+tunnel, exit, [enter, exit], recover, leave
+tunnel, exit, [wait, run], recover, leave
+tunnel, exit, [wait, recover], recover, leave
+tunnel, exit, [wait, exit], recover, leave
+tunnel, exit, [run, recover], recover, leave
+tunnel, exit, [run, exit], recover, leave
+tunnel, exit, [recover, exit], recover, leave
+tunnel, exit, [enter, wait, run], recover, leave
+tunnel, exit, [enter, wait, recover], recover, leave
+tunnel, exit, [enter, wait, exit], recover, leave
+tunnel, exit, [enter, run, recover], recover, leave
+tunnel, exit, [enter, run, exit], recover, leave
+tunnel, exit, [enter, recover, exit], recover, leave
+tunnel, exit, [wait, run, recover], recover, leave
+tunnel, exit, [wait, run, exit], recover, leave
+tunnel, exit, [wait, recover, exit], recover, leave
+tunnel, exit, [run, recover, exit], recover, leave
+tunnel, exit, [enter, wait, run, recover], recover, leave
+tunnel, exit, [enter, wait, run, exit], recover, leave
+tunnel, exit, [enter, wait, recover, exit], recover, leave
+tunnel, exit, [enter, run, recover, exit], recover, leave
+tunnel, exit, [wait, run, recover, exit], recover, leave
+tunnel, exit, [enter, wait, run, recover, exit], recover, leave
+
+
+//is this required?
+tunnel, run, [], stop, tunnel
+tunnel, run, [enter], stop, tunnel
+tunnel, run, [wait], stop, tunnel
+tunnel, run, [run], stop, tunnel
+tunnel, run, [recover], stop, tunnel
+tunnel, run, [exit], stop, tunnel
+tunnel, run, [enter, wait], stop, tunnel
+tunnel, run, [enter, run], stop, tunnel
+tunnel, run, [enter, recover], stop, tunnel
+tunnel, run, [enter, exit], stop, tunnel
+tunnel, run, [wait, run], stop, tunnel
+tunnel, run, [wait, recover], stop, tunnel
+tunnel, run, [wait, exit], stop, tunnel
+tunnel, run, [run, recover], stop, tunnel
+tunnel, run, [run, exit], stop, tunnel
+tunnel, run, [recover, exit], stop, tunnel
+tunnel, run, [enter, wait, run], stop, tunnel
+tunnel, run, [enter, wait, recover], stop, tunnel
+tunnel, run, [enter, wait, exit], stop, tunnel
+tunnel, run, [enter, run, recover], stop, tunnel
+tunnel, run, [enter, run, exit], stop, tunnel
+tunnel, run, [enter, recover, exit], stop, tunnel
+tunnel, run, [wait, run, recover], stop, tunnel
+tunnel, run, [wait, run, exit], stop, tunnel
+tunnel, run, [wait, recover, exit], stop, tunnel
+tunnel, run, [run, recover, exit], stop, tunnel
+tunnel, run, [enter, wait, run, recover], stop, tunnel
+tunnel, run, [enter, wait, run, exit], stop, tunnel
+tunnel, run, [enter, wait, recover, exit], stop, tunnel
+tunnel, run, [enter, run, recover, exit], stop, tunnel
+tunnel, run, [wait, run, recover, exit], stop, tunnel
+tunnel, run, [enter, wait, run, recover, exit], stop, tunnel
+
+tunnel, run, [], recovery, tunnel
+tunnel, run, [enter], recovery, tunnel
+tunnel, run, [wait], recovery, tunnel
+tunnel, run, [run], recovery, tunnel
+tunnel, run, [recover], recovery, tunnel
+tunnel, run, [exit], recovery, tunnel
+tunnel, run, [enter, wait], recovery, tunnel
+tunnel, run, [enter, run], recovery, tunnel
+tunnel, run, [enter, recover], recovery, tunnel
+tunnel, run, [enter, exit], recovery, tunnel
+tunnel, run, [wait, run], recovery, tunnel
+tunnel, run, [wait, recover], recovery, tunnel
+tunnel, run, [wait, exit], recovery, tunnel
+tunnel, run, [run, recover], recovery, tunnel
+tunnel, run, [run, exit], recovery, tunnel
+tunnel, run, [recover, exit], recovery, tunnel
+tunnel, run, [enter, wait, run], recovery, tunnel
+tunnel, run, [enter, wait, recover], recovery, tunnel
+tunnel, run, [enter, wait, exit], recovery, tunnel
+tunnel, run, [enter, run, recover], recovery, tunnel
+tunnel, run, [enter, run, exit], recovery, tunnel
+tunnel, run, [enter, recover, exit], recovery, tunnel
+tunnel, run, [wait, run, recover], recovery, tunnel
+tunnel, run, [wait, run, exit], recovery, tunnel
+tunnel, run, [wait, recover, exit], recovery, tunnel
+tunnel, run, [run, recover, exit], recovery, tunnel
+tunnel, run, [enter, wait, run, recover], recovery, tunnel
+tunnel, run, [enter, wait, run, exit], recovery, tunnel
+tunnel, run, [enter, wait, recover, exit], recovery, tunnel
+tunnel, run, [enter, run, recover, exit], recovery, tunnel
+tunnel, run, [wait, run, recover, exit], recovery, tunnel
+tunnel, run, [enter, wait, run, recover, exit], recovery, tunnel
+
+//not required
+tunnel, run, [wait], go, tunnel
+tunnel, run, [run], go, tunnel
+tunnel, run, [recover], go, tunnel
+tunnel, run, [exit], go, tunnel
+tunnel, run, [wait, run], go, tunnel
+tunnel, run, [wait, recover], go, tunnel
+tunnel, run, [wait, exit], go, tunnel
+tunnel, run, [run, recover], go, tunnel
+tunnel, run, [run, exit], go, tunnel
+tunnel, run, [recover, exit], go, tunnel
+tunnel, run, [wait, run, recover], go, tunnel
+tunnel, run, [wait, run, exit], go, tunnel
+tunnel, run, [wait, recover, exit], go, tunnel
+tunnel, run, [run, recover, exit], go, tunnel
+tunnel, run, [wait, run, recover, exit], go, tunnel
+
+//not required
+tunnel, run, [enter], go, collision
+tunnel, run, [enter, wait], go, collision
+tunnel, run, [enter, run], go, collision
+tunnel, run, [enter, recover], go, collision
+tunnel, run, [enter, exit], go, collision
+tunnel, run, [enter, wait, run], go, collision
+tunnel, run, [enter, wait, recover], go, collision
+tunnel, run, [enter, wait, exit], go, collision
+tunnel, run, [enter, run, recover], go, collision
+tunnel, run, [enter, run, exit], go, collision
+tunnel, run, [enter, recover, exit], go, collision
+tunnel, run, [enter, wait, run, recover], go, collision
+tunnel, run, [enter, wait, run, exit], go, collision
+tunnel, run, [enter, wait, recover, exit], go, collision
+tunnel, run, [enter, run, recover, exit], go, collision
+tunnel, run, [enter, wait, run, recover, exit], go, collision
+
+collision, recover, [], recover, leave
+collision, recover, [enter], recover, leave
+collision, recover, [wait], recover, leave
+collision, recover, [run], recover, leave
+collision, recover, [recover], recover, leave
+collision, recover, [exit], recover, leave
+collision, recover, [enter, wait], recover, leave
+collision, recover, [enter, run], recover, leave
+collision, recover, [enter, recover], recover, leave
+collision, recover, [enter, exit], recover, leave
+collision, recover, [wait, run], recover, leave
+collision, recover, [wait, recover], recover, leave
+collision, recover, [wait, exit], recover, leave
+collision, recover, [run, recover], recover, leave
+collision, recover, [run, exit], recover, leave
+collision, recover, [recover, exit], recover, leave
+collision, recover, [enter, wait, run], recover, leave
+collision, recover, [enter, wait, recover], recover, leave
+collision, recover, [enter, wait, exit], recover, leave
+collision, recover, [enter, run, recover], recover, leave
+collision, recover, [enter, run, exit], recover, leave
+collision, recover, [enter, recover, exit], recover, leave
+collision, recover, [wait, run, recover], recover, leave
+collision, recover, [wait, run, exit], recover, leave
+collision, recover, [wait, recover, exit], recover, leave
+collision, recover, [run, recover, exit], recover, leave
+collision, recover, [enter, wait, run, recover], recover, leave
+collision, recover, [enter, wait, run, exit], recover, leave
+collision, recover, [enter, wait, recover, exit], recover, leave
+collision, recover, [enter, run, recover, exit], recover, leave
+collision, recover, [wait, run, recover, exit], recover, leave
+collision, recover, [enter, wait, run, recover, exit], recover, leave
+
+collision, recover, [], stop, collision
+collision, recover, [enter], stop, collision
+collision, recover, [wait], stop, collision
+collision, recover, [run], stop, collision
+collision, recover, [recover], stop, collision
+collision, recover, [exit], stop, collision
+collision, recover, [enter, wait], stop, collision
+collision, recover, [enter, run], stop, collision
+collision, recover, [enter, recover], stop, collision
+collision, recover, [enter, exit], stop, collision
+collision, recover, [wait, run], stop, collision
+collision, recover, [wait, recover], stop, collision
+collision, recover, [wait, exit], stop, collision
+collision, recover, [run, recover], stop, collision
+collision, recover, [run, exit], stop, collision
+collision, recover, [recover, exit], stop, collision
+collision, recover, [enter, wait, run], stop, collision
+collision, recover, [enter, wait, recover], stop, collision
+collision, recover, [enter, wait, exit], stop, collision
+collision, recover, [enter, run, recover], stop, collision
+collision, recover, [enter, run, exit], stop, collision
+collision, recover, [enter, recover, exit], stop, collision
+collision, recover, [wait, run, recover], stop, collision
+collision, recover, [wait, run, exit], stop, collision
+collision, recover, [wait, recover, exit], stop, collision
+collision, recover, [run, recover, exit], stop, collision
+collision, recover, [enter, wait, run, recover], stop, collision
+collision, recover, [enter, wait, run, exit], stop, collision
+collision, recover, [enter, wait, recover, exit], stop, collision
+collision, recover, [enter, run, recover, exit], stop, collision
+collision, recover, [wait, run, recover, exit], stop, collision
+collision, recover, [enter, wait, run, recover, exit], stop, collision
+
+
+//Transition in environment
+green, go, [enter], red
+green, go, [enter, wait], red
+green, go, [enter, run], red
+green, go, [enter, recover], red
+green, go, [enter, exit], red
+green, go, [enter, wait, run], red
+green, go, [enter, wait, recover], red
+green, go, [enter, wait, exit], red
+green, go, [enter, run, recover], red
+green, go, [enter, run, exit], red
+green, go, [enter, recover, exit], red
+green, go, [enter, wait, run, recover], red
+green, go, [enter, wait, run, exit], red
+green, go, [enter, wait, recover, exit], red
+green, go, [enter, run, recover, exit], red
+green, go, [enter, wait, run, recover, exit], red
+
+green, go, [], green
+green, go, [wait], green
+green, go, [run], green
+green, go, [recover], green
+green, go, [exit], green
+green, go, [wait, run], green
+green, go, [wait, recover], green
+green, go, [wait, exit], green
+green, go, [run, recover], green
+green, go, [run, exit], green
+green, go, [recover, exit], green
+green, go, [wait, run, recover], green
+green, go, [wait, run, exit], green
+green, go, [wait, recover, exit], green
+green, go, [run, recover, exit], green
+green, go, [wait, run, recover, exit], green
+
+red, stop, [exit], green
+red, stop, [enter, exit], green
+red, stop, [wait, exit], green
+red, stop, [run, exit], green
+red, stop, [recover, exit], green
+red, stop, [enter, wait, exit], green
+red, stop, [enter, run, exit], green
+red, stop, [enter, recover, exit], green
+red, stop, [wait, run, exit], green
+red, stop, [wait, recover, exit], green
+red, stop, [run, recover, exit], green
+red, stop, [enter, wait, run, exit], green
+red, stop, [enter, wait, recover, exit], green
+red, stop, [enter, run, recover, exit], green
+red, stop, [wait, run, recover, exit], green
+red, stop, [enter, wait, run, recover, exit], green
+
+red, stop, [], red
+red, stop, [enter], red
+red, stop, [wait], red
+red, stop, [run], red
+red, stop, [recover], red
+red, stop, [enter, wait], red
+red, stop, [enter, run], red
+red, stop, [enter, recover], red
+red, stop, [wait, run], red
+red, stop, [wait, recover], red
+red, stop, [run, recover], red
+red, stop, [enter, wait, run], red
+red, stop, [enter, wait, recover], red
+red, stop, [enter, run, recover], red
+red, stop, [wait, run, recover], red
+red, stop, [enter, wait, run, recover], red
+
+red, recover, [recover], green
+red, recover, [enter, recover], green
+red, recover, [wait, recover], green
+red, recover, [run, recover], green
+red, recover, [exit, recover], green
+red, recover, [enter, wait, recover], green
+red, recover, [enter, run, recover], green
+red, recover, [enter, recover, exit], green
+red, recover, [wait, run, recover], green
+red, recover, [wait, recover, exit], green
+red, recover, [run, recover, exit], green
+red, recover, [enter, wait, run, recover], green
+red, recover, [enter, wait, recover, exit], green
+red, recover, [enter, run, recover, exit], green
+red, recover, [wait, run, recover, exit], green
+red, recover, [enter, wait, run, recover, exit], green
+
+red, recover, [], red
+red, recover, [enter], red
+red, recover, [wait], red
+red, recover, [run], red
+red, recover, [exit], red
+red, recover, [enter, wait], red
+red, recover, [enter, run], red
+red, recover, [enter, exit], red
+red, recover, [wait, run], red
+red, recover, [wait, exit], red
+red, recover, [run, exit], red
+red, recover, [enter, wait, run], red
+red, recover, [enter, wait, exit], red
+red, recover, [enter, run, exit], red
+red, recover, [wait, run, exit], red
+red, recover, [enter, wait, run, exit], red
