@@ -1,0 +1,29 @@
+gal RutwiyaPetriNet {
+    int l_e = 1;
+    int l0 = 0;
+    int l2 = 0;
+    int l1 = 0;
+
+    transition ___l1____a2___frozenset_____b____l2______l_e____b___frozenset___a2______l_e___ [l1 >= 1 && l_e >= 1] {
+        l1 -= 1;
+        l_e -= 1;
+        l2 += 1;
+        l_e += 1;
+    }
+
+    transition taj [true] {
+        l0 += 1;
+    }
+
+    transition tal [l2 >= 1] {
+        l2 -= 1;
+    }
+
+    transition ___l0____a1___frozenset_____b____l1______l_e____b___frozenset___a1______l_e___ [l0 >= 1 && l_e >= 1] {
+        l0 -= 1;
+        l_e -= 1;
+        l1 += 1;
+        l_e += 1;
+    }
+
+}
