@@ -1,0 +1,38 @@
+
+# agent information pranav
+
+l0 l1 l2 
+
+a1 a2 
+
+l0: a1,a2
+l1: a1,a2
+
+l0,a1,b1,a1,l0
+l0,a2,b1,a2,l0
+l0,a1,b2,a1 a2,l1
+l0,a2,b2,a1 a2,l1
+l1,a1,b2,a2,l1
+l1,a2,b2,a1,l1
+l1,a1,b2,a1 a2,l2
+l1,a2,b2,a1 a2,l2
+
+
+l0
+l2
+
+#environment information
+
+le0,le1
+
+b1,b2
+
+le0: b1,b2
+le1: b2
+
+le0
+
+le0,b1,a1,le0
+le0,b1,a2,le0
+le0,b2,a1 a2,le1
+le1,b2,a1 a2,le1

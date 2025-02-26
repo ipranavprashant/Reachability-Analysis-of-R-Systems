@@ -1,0 +1,37 @@
+# agent information
+
+l0 l1 l2 
+
+a1 a2 
+
+l0: a1,a2
+l1: a1,a2
+
+l0,a1,b,a1,l1
+l0,a1,b,,l1
+l0,a2,b,a2,l2
+l0,a2,b,,l2
+l1,a2,b,a2,l2
+l1,a2,b,,l2
+l1,a1,b,a1,l0
+l1,a1,b,,l0
+
+l0
+l2
+
+# environment information
+
+le0 le1 le2
+
+b
+
+le0: b
+le1: b
+le2: b
+
+le0
+
+le0,b,a1,le1
+le0,b,a2,le2
+le2,b,a1,le1
+le1,b,a2,le2
