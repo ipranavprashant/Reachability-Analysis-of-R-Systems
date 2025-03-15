@@ -1,0 +1,154 @@
+gal System {
+ int l0 = 0;
+ int l1 = 0;
+ int l2 = 0;
+ int le0 = 1;
+ int le1 = 0;
+ int le2 = 0;
+
+ transition initialTrans [true] {
+ l0 += 1;
+ }
+
+ transition leaveTrans [l2 > 0] {
+ l2 -= 1;
+ }
+
+ transition t1 [le0 >= 1 && l0 >= 1] {
+ le0 -= 1; l0 -= 1; le1 += 1; l1 += 1;
+ }
+
+ transition t2 [le0 >= 1 && l1 >= 1] {
+ le0 -= 1; l1 -= 1; le1 += 1; l0 += 1;
+ }
+
+ transition t3 [le0 >= 1 && l0 >= 2] {
+ le0 -= 1; l0 -= 2; le1 += 1; l1 += 2;
+ }
+
+ transition t4 [le0 >= 1 && l0 >= 1 && l1 >= 1] {
+ le0 -= 1; l0 -= 1; l1 -= 1; le1 += 1; l1 += 1; l0 += 1;
+ }
+
+ transition t5 [le0 >= 1 && l1 >= 1 && l0 >= 1] {
+ le0 -= 1; l1 -= 1; l0 -= 1; le1 += 1; l0 += 1; l1 += 1;
+ }
+
+ transition t6 [le0 >= 1 && l1 >= 2] {
+ le0 -= 1; l1 -= 2; le1 += 1; l0 += 2;
+ }
+
+ transition t7 [le0 >= 1 && l0 >= 1] {
+ le0 -= 1; l0 -= 1; le2 += 1; l2 += 1;
+ }
+
+ transition t8 [le0 >= 1 && l1 >= 1] {
+ le0 -= 1; l1 -= 1; le2 += 1; l2 += 1;
+ }
+
+ transition t9 [le0 >= 1 && l0 >= 2] {
+ le0 -= 1; l0 -= 2; le2 += 1; l2 += 2;
+ }
+
+ transition t10 [le0 >= 1 && l0 >= 1 && l1 >= 1] {
+ le0 -= 1; l0 -= 1; l1 -= 1; le2 += 1; l2 += 2;
+ }
+
+ transition t11 [le0 >= 1 && l1 >= 1 && l0 >= 1] {
+ le0 -= 1; l1 -= 1; l0 -= 1; le2 += 1; l2 += 2;
+ }
+
+ transition t12 [le0 >= 1 && l1 >= 2] {
+ le0 -= 1; l1 -= 2; le2 += 1; l2 += 2;
+ }
+
+ transition t13 [le2 >= 1 && l0 >= 1] {
+ le2 -= 1; l0 -= 1; le1 += 1; l1 += 1;
+ }
+
+ transition t14 [le2 >= 1 && l1 >= 1] {
+ le2 -= 1; l1 -= 1; le1 += 1; l0 += 1;
+ }
+
+ transition t15 [le2 >= 1 && l0 >= 2] {
+ le2 -= 1; l0 -= 2; le1 += 1; l1 += 2;
+ }
+
+ transition t16 [le2 >= 1 && l0 >= 1 && l1 >= 1] {
+ le2 -= 1; l0 -= 1; l1 -= 1; le1 += 1; l1 += 1; l0 += 1;
+ }
+
+ transition t17 [le2 >= 1 && l1 >= 1 && l0 >= 1] {
+ le2 -= 1; l1 -= 1; l0 -= 1; le1 += 1; l0 += 1; l1 += 1;
+ }
+
+ transition t18 [le2 >= 1 && l1 >= 2] {
+ le2 -= 1; l1 -= 2; le1 += 1; l0 += 2;
+ }
+
+ transition t19 [le1 >= 1 && l0 >= 1] {
+ le1 -= 1; l0 -= 1; le2 += 1; l2 += 1;
+ }
+
+ transition t20 [le1 >= 1 && l1 >= 1] {
+ le1 -= 1; l1 -= 1; le2 += 1; l2 += 1;
+ }
+
+ transition t21 [le1 >= 1 && l0 >= 2] {
+ le1 -= 1; l0 -= 2; le2 += 1; l2 += 2;
+ }
+
+ transition t22 [le1 >= 1 && l0 >= 1 && l1 >= 1] {
+ le1 -= 1; l0 -= 1; l1 -= 1; le2 += 1; l2 += 2;
+ }
+
+ transition t23 [le1 >= 1 && l1 >= 1 && l0 >= 1] {
+ le1 -= 1; l1 -= 1; l0 -= 1; le2 += 1; l2 += 2;
+ }
+
+ transition t24 [le1 >= 1 && l1 >= 2] {
+ le1 -= 1; l1 -= 2; le2 += 1; l2 += 2;
+ }
+}
+
+main System;
+
+property p1 [reachable] : l0==8 && l1==1 && l2==1 && le2==1 && le0==0 && le==0;
+
+
+
+gal generatedCode {
+ int l0 = 0;
+ int l1 = 0;
+ int l2 = 0;
+ int le = 1;
+
+ transition initialTrans [true] {
+ l0 += 1;
+ }
+
+ transition leaveTrans [l2 > 0] {
+ l2 -= 1;
+ }
+
+ transition t1 [le >= 1 && l0 >= 1] {
+ le -= 1; l0 -= 1; le += 1; l1 += 1;
+ }
+
+ transition t2 [le >= 1 && l0 >= 2] {
+ le -= 1; l0 -= 2; le += 1; l1 += 2;
+ }
+
+ transition t3 [le >= 1 && l1 >= 1] {
+ le -= 1; l1 -= 1; le += 1; l2 += 1;
+ }
+
+ transition t4 [le >= 1 && l1 >= 2] {
+ le -= 1; l1 -= 2; le += 1; l2 += 2;
+ }
+}
+
+main generatedCode;
+
+property p1 [reachable] : l0==0 && l1==0 && l2==0 && le==1;
+

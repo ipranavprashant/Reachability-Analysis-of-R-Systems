@@ -1,9 +1,161 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import itertools
 from flask_cors import CORS
+# from simulator import PetriNetSimulator
+import random
+import copy
+
+
 
 app = Flask(__name__)
 CORS(app)
+
+class PetriNetSimulator:
+    def __init__(self, gal_code):
+        self.variables = {}  
+        self.transitions = {} 
+        self._parse_gal_code(gal_code)
+
+    def _parse_gal_code(self, gal_code):
+        lines = gal_code.strip().splitlines()
+        current_transition = None
+
+        print("Parsing GAL code...\n")
+
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+                
+            if line.startswith("int"):
+                var, val = line.replace(";", "").split("=")
+                var_name = var.split()[1].strip()
+                self.variables[var_name] = int(val.strip())
+                print(f"Declared variable: {var_name} = {self.variables[var_name]}")
+
+            elif line.startswith("transition"):
+                name = line.split("transition")[1].split("[")[0].strip()
+                guard = line.split("[")[1].split("]")[0].strip()
+                current_transition = name
+                self.transitions[name] = (guard, [])
+                print(f"\nFound transition: {name} with guard: '{guard}'")
+
+            elif current_transition and ";" in line:
+                actions = []
+                for action in line.split(";"):
+                    action = action.strip()
+                    if action:
+                        actions.append(action)
+                        print(f"  Parsed action: {action}")
+                self.transitions[current_transition] = (self.transitions[current_transition][0], actions)
+
+        print("\nFinished parsing.\n")
+
+    def _evaluate_guard(self, guard, marking):
+        print(f"  Evaluating guard: '{guard}' with marking: {marking}")
+        if guard.lower() == "true":
+            print("    Guard is 'true' → passes ✅")
+            return True
+
+        for condition in guard.split("&&"):
+            condition = condition.strip()
+            if ">=" in condition:
+                var, val = condition.split(">=")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) < int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) < {val}")
+                    return False
+            elif "<=" in condition:
+                var, val = condition.split("<=")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) > int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) > {val}")
+                    return False
+            elif "==" in condition:
+                var, val = condition.split("==")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) != int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) != {val}")
+                    return False
+            elif "!=" in condition:
+                var, val = condition.split("!=")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) == int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) == {val}")
+                    return False
+            elif ">" in condition:
+                var, val = condition.split(">")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) <= int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) <= {val}")
+                    return False
+            elif "<" in condition:
+                var, val = condition.split("<")
+                var, val = var.strip(), val.strip()
+                if marking.get(var, 0) >= int(val):
+                    print(f"    Guard failed: {var} ({marking.get(var,0)}) >= {val}")
+                    return False
+
+        print("    Guard passed ✅")
+        return True
+
+    def _apply_actions(self, actions, marking):
+        print(f"  Applying actions: {actions} to marking: {marking}")
+        result = copy.deepcopy(marking)
+        for action in actions:
+            if "+=" in action:
+                var, val = action.split("+=")
+                var, val = var.strip(), val.strip()
+                result[var] = result.get(var, 0) + int(val)
+                print(f"    {var} += {val} → {result[var]}")
+            elif "-=" in action:
+                var, val = action.split("-=")
+                var, val = var.strip(), val.strip()
+                result[var] = result.get(var, 0) - int(val)
+                print(f"    {var} -= {val} → {result[var]}")
+        return result
+
+    def _get_fireable_transitions(self, marking):
+        print("\nChecking fireable transitions...")
+        fireable = []
+        for name, (guard, actions) in self.transitions.items():
+            print(f" Checking transition: {name}")
+            if self._evaluate_guard(guard, marking):
+                new_marking = self._apply_actions(actions, marking)
+                if all(v >= 0 for v in new_marking.values()):
+                    fireable.append((name, new_marking))
+                    print(f"  ✅ Transition {name} is fireable.")
+                else:
+                    print(f"  ❌ Transition {name} leads to negative values → skipped.")
+            else:
+                print(f"  ❌ Guard for {name} not satisfied → skipped.")
+        return fireable
+
+    def simulate(self, max_steps=100):
+        current = copy.deepcopy(self.variables)
+        trace = [("initial", copy.deepcopy(current))]
+
+        print("\n===== Starting Simulation =====\n")
+        print(f"Initial marking: {current}\n")
+
+        for step in range(max_steps):
+            print(f"\n--- Step {step+1} ---")
+            fireable = self._get_fireable_transitions(current)
+
+            if not fireable:
+                print("No fireable transitions. Simulation halts.\n")
+                break
+
+            transition_name, next_marking = random.choice(fireable)
+            print(f"\n🔥 Firing transition: {transition_name}")
+            print(f"New marking: {next_marking}")
+            trace.append((transition_name, copy.deepcopy(next_marking)))
+            current = next_marking
+
+        print("\n===== Simulation Finished =====\n")
+        return trace
+
+
 
 def process_input_data(input_text):
     with open("input.txt", "w") as file:
@@ -135,6 +287,7 @@ def process_input_data(input_text):
 
     return gal_code
 
+
 @app.route("/process", methods=["POST"])
 def process():
     data = request.json
@@ -142,6 +295,28 @@ def process():
     gal_code = process_input_data(input_text)
     return jsonify({"gal_code": gal_code})
 
+
+@app.route("/simulate", methods=["POST"])
+def simulate():
+    if not request.is_json:
+        return make_response(jsonify({"error": "Invalid content type. JSON expected."}), 400)
+
+    data = request.get_json()
+    input_text = data.get("input_text", "")
+    no_of_branches=int(data.get("no_of_branches",25))
+
+
+    gal_code = process_input_data(input_text);
+    simulator = PetriNetSimulator(gal_code)
+    print("pranav special: ",gal_code);
+
+    trace = simulator.simulate(max_steps=no_of_branches)
+
+    response = make_response(jsonify({"trace": trace}), 200)
+    response.headers["Content-Type"] = "application/json"
+    return response
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-

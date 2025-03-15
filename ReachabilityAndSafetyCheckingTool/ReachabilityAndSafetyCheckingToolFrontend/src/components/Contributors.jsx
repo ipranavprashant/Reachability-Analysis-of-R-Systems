@@ -112,7 +112,7 @@ export default function Contributors() {
           {contributors.map((contributor, index) => (
             <div
               key={index}
-              className={`shadow-lg rounded-2xl p-6 flex flex-col items-center text-center transition transform hover:scale-105 cursor-pointer ${
+              className={`shadow-2xl rounded-2xl p-6 flex flex-col items-center text-center transition transform hover:scale-105 cursor-pointer ${
                 darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
               }`}
             >
